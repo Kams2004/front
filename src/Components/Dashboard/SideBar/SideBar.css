@@ -1,0 +1,113 @@
+/* Sidebar CSS */
+.sidebar-container {
+    position: fixed; /* Fixed position on the left side */
+    top: 70px; /* Offset from the header */
+    left: 0; /* Align to the left of the viewport */
+    background-color: #292b2c;
+    border-radius: 10px;
+    transition: width 0.3s ease-in-out;
+    height: calc(100vh - 70px); /* Full height minus header space */
+    width: 250px; /* Default expanded width */
+    z-index: 1000; /* Ensure the sidebar is above other content */
+    overflow: hidden; /* Prevent overflow */
+}
+
+.collapsed {
+    width: 80px;
+}
+
+.expanded {
+    width: 250px;
+}
+
+/* Sidebar content styling */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+    color: white;
+}
+
+/* Logo styling */
+.logo-container {
+    margin: 20px 0;
+}
+
+.sidebar-logo {
+    width: 40px;
+    height: 40px;
+}
+
+/* User Profile */
+.user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.user-profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.user-info {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.user-info p {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.user-info small {
+    color: #ccc;
+}
+
+/* Sidebar Nav */
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar-nav li {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.sidebar-nav li:hover {
+    background-color: #4caf50;
+}
+
+.sidebar-nav i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.sidebar-nav span {
+    margin-left: 20px;
+    font-size: 1.2rem;
+}
+
+/* Expanded and Collapsed text behavior */
+.collapsed span {
+    display: none;
+}
+
+.expanded span {
+    display: inline-block;
+}
+
+/* Adjust width for collapsed state */
+.sidebar-container.collapsed {
+    width: 80px;
+}
