@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('/home/pdmd/pdmd-medical-center/public/pdmdimg.jpg') no-repeat center center fixed; 
+    background: url('/home/pdmd/pdmd-medical-center/public/facade.png') no-repeat center center fixed; 
     background-size: cover; /* Ensures the image covers the entire background */
   }
   

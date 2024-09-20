@@ -1,39 +1,52 @@
 // src/Components/Body/containers.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 
-// Example of TransactionsContainer Component
-export const TransactionsContainer = ({ handleReload }) => (
-  <div className="container transactions-container">
-    <i className="bi bi-arrow-clockwise reload-icon" onClick={handleReload}></i>
-    <h2 className="text-center">Today's Transactions</h2>
-    <div className="wallet-section d-flex align-items-center mt-4">
-      <i className="bi bi-wallet2 wallet-icon"></i>
-      <span className="amount ms-3 fw-bold">$1,500</span>
-    </div>
-    <div className="progress mt-4">
-      <div
-        className="progress-bar progress-bar-striped"
-        role="progressbar"
-        style={{ width: '50%' }}
-        aria-valuenow="50"
-        aria-valuemin="0"
-        aria-valuemax="100"
-      ></div>
-    </div>
-    <div className="transaction-info d-flex justify-content-between mt-4">
-      <div className="commission d-flex align-items-center">
-        <i className="bi bi-cash-coin"></i>
-        <span className="ms-2">5 Commissions</span>
-      </div>
-      <div className="total-transactions d-flex align-items-center">
-        <i className="bi bi-receipt"></i>
-        <span className="ms-2">20 Transactions</span>
-      </div>
-    </div>
-  </div>
-);
+export const TransactionsContainer = ({ handleReload }) => {
+  const [isAmountVisible, setIsAmountVisible] = useState(false); // State to manage visibility
 
+  const toggleAmountVisibility = () => {
+    setIsAmountVisible(!isAmountVisible);
+  };
+
+  return (
+    <div className="container transactions-container">
+      <i className="bi bi-arrow-clockwise reload-icon" onClick={handleReload}></i>
+      <h2 className="text-center">Today's Transactions</h2>
+      <div className="wallet-section d-flex align-items-center mt-4">
+        <i className="bi bi-wallet2 wallet-icon"></i>
+        <span className="amount ms-3 fw-bold">
+          {isAmountVisible ? "$1,500" : "*****"} {/* Show amount or asterisks */}
+        </span>
+        <i 
+          className={`bi ${isAmountVisible ? "bi-eye-slash" : "bi-eye"} ms-3 toggle-amount-icon`} 
+          onClick={toggleAmountVisibility} 
+          title="Toggle Amount Visibility"
+        ></i>
+      </div>
+      <div className="progress mt-4">
+        <div
+          className="progress-bar progress-bar-striped"
+          role="progressbar"
+          style={{ width: '50%' }}
+          aria-valuenow="50"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+      <div className="transaction-info d-flex justify-content-between mt-4">
+        <div className="commission d-flex align-items-center">
+          <i className="bi bi-cash-coin"></i>
+          <span className="ms-2">5 Commissions</span>
+        </div>
+        <div className="total-transactions d-flex align-items-center">
+          <i className="bi bi-receipt"></i>
+          <span className="ms-2">20 Transactions</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 
 

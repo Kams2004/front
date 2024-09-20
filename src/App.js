@@ -1,29 +1,19 @@
 // src/App.js
-// src/Components/Dashboard/DashboardPage.js
+
 import React from 'react';
-import Header from './Components/Dashboard/Header';
-import Body from './Components/Dashboard/Body';
-import Sidebar from './Components/Dashboard/SideBar/SideBar';
-import './Components/Dashboard/DashboardPage.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './Components/LoginPage/Loginpage';
+import DashboardPage from './Components/Dashboard/DashboardPage'; // Import the DashboardPage
 
-const DashboardPage = () => {
+function App() {
   return (
-    <div className="dashboard-page">
-      {/* Full-width Header */}
-      <Header />
-
-      {/* Main Content */}
-      <div className="main-content">
-        {/* Sidebar */}
-        <Sidebar />
-        
-        {/* Body content */}
-        <div className="dashboard-body">
-          <Body />
-        </div>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />        {/* Login Page Route */}
+        <Route path="/dashboard" element={<DashboardPage />} /> {/* Dashboard Route */}
+      </Routes>
+    </Router>
   );
-};
+}
 
-export default DashboardPage;
+export default App;

@@ -1,4 +1,4 @@
-// src/Components/Body/Body.js
+
 import React from 'react';
 import './Body.css'; // Import CSS specific to the body
 import {
@@ -9,6 +9,11 @@ import {
   WeeklyRevenueContainer,
   StatusByChannelContainer
 } from './containers'; // Import containers
+
+import TransactionsList from '../Transaction/TransactionsList'; // Import the Transactions List component
+import RegisteredPatients from '../Patients/RegisteredPatients'; // Import the Registered Patients component
+import ExaminationList from '../Examinations/ExaminationList'; // Import the Examination List component
+import TransferToMedicalCenter from '../Transfer/TransferToMedicalCenter'; // Import the Transfer component
 
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -24,32 +29,44 @@ ChartJS.register(
   Legend
 );
 
-const Body = () => {
+const Body = ({ selectedComponent }) => {
   // Example values
   const examinationsInProcess = 10;
   const totalExaminations = 20;
   const progressPercent = (examinationsInProcess / totalExaminations) * 100;
 
   const handleReload = () => {
-    // Reload logic here
     console.log('Reloading...');
   };
 
   return (
     <main className="dashboard">
+      {/* Top Row */}
       <div className="top-row">
         <TransactionsContainer handleReload={handleReload} />
         <PatientsContainer handleReload={handleReload} />
         <ExaminationsContainer examinationsInProcess={examinationsInProcess} progressPercent={progressPercent} handleReload={handleReload} />
       </div>
 
+      {/* Conditional rendering for the bottom row */}
       <div className="bottom-row">
-        <WideContainer handleReload={handleReload} />
-
-        <div className="side-by-side">
-          <WeeklyRevenueContainer />
-          <StatusByChannelContainer />
-        </div>
+        {selectedComponent === 'Transactions' ? (
+          <TransactionsList />
+        ) : selectedComponent === 'Patients' ? (
+          <RegisteredPatients />
+        ) : selectedComponent === 'Examinations' ? (
+          <ExaminationList />
+        ) : selectedComponent === 'Transfer' ? (
+          <TransferToMedicalCenter />
+        ) : (
+          <>
+            <WideContainer handleReload={handleReload} />
+            <div className="side-by-side">
+              <WeeklyRevenueContainer />
+              <StatusByChannelContainer />
+            </div>
+          </>
+        )}
       </div>
     </main>
   );
