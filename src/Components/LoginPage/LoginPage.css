@@ -1,175 +1,203 @@
 /* General styling for the login page */
 .login-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: url('/home/pdmd/pdmd-medical-center/public/facade.png') no-repeat center center fixed; 
-    background-size: cover; /* Ensures the image covers the entire background */
-  }
-  
-  /* The login container has two sides: the image on the left and form on the right */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('/home/pdmd/pdmd-medical-center/public/facade.png') no-repeat center center fixed; 
+  background-size: cover; /* Ensures the image covers the entire background */
+}
+
+/* The login container has two sides: the image on the left and form on the right */
+.login-container {
+  display: flex;
+  width: 80%;
+  max-width: 1000px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Left side: image container */
+.image-container {
+  flex: 1; /* Takes up half the space */
+  background-color: #eaeaea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.baby-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 15px; /* Rounded corners */
+}
+
+/* Right side: form container */
+.form-container {
+  flex: 1; /* Takes up half the space */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Circular logo */
+.app-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%; /* Makes the logo circular */
+  margin-bottom: 20px;
+}
+
+/* All text bold */
+h2, p, label, .forgot-password {
+  font-weight: bold;
+}
+
+/* Role buttons styling */
+.role-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.role-button {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  border-radius: 30px; /* Fully rounded buttons */
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.role-button.active {
+  background-color: #007bff;
+  color: white;
+  transform: translateY(-2px); /* Slight upward movement on click */
+}
+
+.role-button:hover {
+  transform: translateY(-5px); /* Movement on hover */
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Form input styling */
+.input-group-text {
+  background-color: #f0f0f0;
+  border-radius: 30px 0 0 30px; /* Rounded start of the input group */
+  border-right: none;
+}
+
+.input-field {
+  border-radius: 0 30px 30px 0; /* Rounded input fields */
+  border-left: none;
+}
+
+/* Remember me and forgot password section */
+.options {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input {
+  margin-right: 10px;
+}
+
+.forgot-password {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Submit button styling */
+.submit-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 30px; /* Rounded submit button */
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  transform: translateY(-5px); /* Movement on hover */
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Message field styling */
+.message-field {
+  border-radius: 20px; /* Slightly oval ends */
+  resize: none; /* Prevent resizing */
+}
+
+/* Registration link styling */
+.link-button {
+  color: #007bff;
+  text-decoration: underline; /* Underline for link effect */
+  cursor: pointer;
+}
+
+/* Eye icon styling */
+.eye-icon {
+  cursor: pointer;
+}
+
+.eye-icon i {
+  font-size: 1.2rem; /* Adjust size if needed */
+}
+
+@media (max-width: 768px) {
+  /* Stack the login form and image on smaller screens */
   .login-container {
-    display: flex;
-    width: 80%;
-    max-width: 1000px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  /* Left side: image container */
-  .image-container {
-    flex: 1; /* Takes up half the space */
-    background-color: #eaeaea;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .baby-image {
-    width: 100%;
-    max-width: 350px;
-    height: auto;
-    border-radius: 15px; /* Rounded corners */
-  }
-  
-  /* Right side: form container */
-  .form-container {
-    flex: 1; /* Takes up half the space */
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Circular logo */
-  .app-logo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%; /* Makes the logo circular */
-    margin-bottom: 20px;
-  }
-  
-  /* All text bold */
-  h2, p, label, .forgot-password {
-    font-weight: bold;
-  }
-  
-  /* Role buttons styling */
-  .role-buttons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .role-button {
-    padding: 10px 20px;
-    border: 1px solid #ddd;
-    border-radius: 30px; /* Fully rounded buttons */
-    background-color: #f0f0f0;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: transform 0.2s ease, background-color 0.3s ease;
-  }
-  
-  .role-button.active {
-    background-color: #007bff;
-    color: white;
-    transform: translateY(-2px); /* Slight upward movement on click */
-  }
-  
-  .role-button:hover {
-    transform: translateY(-5px); /* Movement on hover */
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
-  /* Form input styling */
-  .input-group-text {
-    background-color: #f0f0f0;
-    border-radius: 30px 0 0 30px; /* Rounded start of the input group */
-    border-right: none;
-  }
-  
-  .input-field {
-    border-radius: 0 30px 30px 0; /* Rounded input fields */
-    border-left: none;
-  }
-  
-  /* Remember me and forgot password section */
-  .options {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 15px;
-  }
-  
-  .remember-me {
-    display: flex;
-    align-items: center;
-  }
-  
-  .remember-me input {
-    margin-right: 10px;
-  }
-  
-  .forgot-password {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .forgot-password:hover {
-    text-decoration: underline;
-  }
-  
-  /* Submit button styling */
-  .submit-button {
-    width: 100%;
-    padding: 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 30px; /* Rounded submit button */
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 10px;
-    transition: transform 0.2s ease, background-color 0.3s ease;
-  }
-  
-  .submit-button:hover {
-    transform: translateY(-5px); /* Movement on hover */
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
-  @media (max-width: 768px) {
-    /* Stack the login form and image on smaller screens */
-    .login-container {
       flex-direction: column;
       width: 90%;
-    }
-  
-    .image-container {
+  }
+
+  .image-container {
       width: 100%;
       padding: 0;
-    }
-  
-    .form-container {
+  }
+
+  .form-container {
       padding: 20px;
-    }
   }
-  /* Make the eye icon cursor a pointer */
-.eye-icon {
-    cursor: pointer;
-  }
-  
-  .eye-icon i {
-    font-size: 1.2rem; /* Adjust size if needed */
-  }
-  
-  
+}
+
+/* Request Registration Form Styling */
+.registration-form {
+  margin-top: 20px; /* Add space above the form */
+}
+
+.registration-form .d-flex {
+  margin-top: 20px; /* Space above the buttons */
+}
+
+.role-button {
+  margin-right: 20px; /* Space between Cancel and Confirm buttons */
+}
+
+/* Other styles remain unchanged... */
+

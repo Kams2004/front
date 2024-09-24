@@ -1,0 +1,78 @@
+.transactions-list-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.transactions-list-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.blue-line {
+    border: 2px solid #007bff;
+    margin-bottom: 20px;
+}
+
+.transaction-filter-form {
+    margin-bottom: 20px;
+}
+
+/* Form inputs */
+.form-control {
+    border-radius: 5px;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+}
+
+/* Buttons */
+.form-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form-buttons .btn {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border-radius: 20px; /* Rounded ends */
+    transition: background-color 0.3s;
+}
+
+.form-buttons .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.form-buttons .btn-secondary:hover {
+    background-color: #6c757d;
+}
+
+/* Results table */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}
+.results-container{
+    text-align: center;
+}

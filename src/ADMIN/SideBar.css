@@ -16,15 +16,10 @@
     white-space: nowrap;
   }
   
-  .collapsed {
-    width: 80px;
-  }
-  
   .expanded {
     width: 250px;
   }
   
-  /* Sidebar content styling */
   .sidebar {
     display: flex;
     flex-direction: column;
@@ -103,23 +98,16 @@
   }
   
   /* Expanded and Collapsed text behavior */
-  .collapsed span {
-    display: none;
-  }
-  
   .expanded span {
     display: inline-block;
   }
   
-  /* Adjust width for collapsed state
-  .collapsed {
-    width: 80px; */
-  /* } */
-  
+  /* Block display */
   .block {
     display: block;
   }
   
+  /* Responsive styles */
   @media screen and (max-width: 472px) {
     .sidebar-containers {
       right: 10px;
@@ -135,8 +123,7 @@
       display: none;
     }
     .sidebar-containers {
-      padding:0px;
+      padding: 0px;
     }
-   
   }
   
