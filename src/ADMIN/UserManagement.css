@@ -1,0 +1,66 @@
+/* UserManagement.css */
+.user-management-container {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.user-table {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.user-table th,
+.user-table td {
+    text-align: left;
+}
+
+.add-user-button {
+    background-color: #007bff; /* Blue background */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    float: right; /* Position at the corner */
+    margin-bottom: 1rem; /* Space below the button */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover */
+}
+
+.add-user-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Scale up on hover */
+}
+
+/* Action buttons styling */
+.btn-action {
+    margin-right: 0.5rem; /* Space between buttons */
+    transition: transform 0.2s, background-color 0.2s; /* Smooth transition for hover */
+}
+
+.btn-action:hover {
+    transform: scale(1.05); /* Scale up on hover */
+}
+
+
+/* Add this to UserManagement.css or create a separate CSS file */
+/* Add this to UserManagement.css or create a separate CSS file */
+/* UserManagement.css */
+.user-management-container {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* UserRegistration.css (if applicable) */
+.user-registration-container {
+    padding: 2rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

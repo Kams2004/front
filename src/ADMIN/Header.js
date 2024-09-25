@@ -17,12 +17,8 @@ const Header = () => {
       </div>
 
       {/* Search Bar - Centered */}
-      <div
-       className="d-flex form-control search-bar rounded-pill max-w"
-
-       >
+      <div className="d-flex form-control search-bar rounded-pill max-w">
         <i className="mr-5 bi bi-search"></i>
-
         <input
           type="text"
           className="border-0 ml-5 flex-grow-1"
@@ -33,13 +29,13 @@ const Header = () => {
       {/* Icons on the right */}
       <div className="icons-container d-flex align-items-center">
         {/* Account Icon */}
-        <div className="icon icon-spacing">
+        <div className="icon icon-spacing mx-3">
           <i className="bi bi-person-circle"></i> {/* Account Icon */}
         </div>
 
         {/* Notification Icon */}
         <div
-          className="icon icon-spacing"
+          className="icon icon-spacing mx-3"
           onMouseEnter={() => setShowNotifications(true)}
           onMouseLeave={() => setShowNotifications(false)}
         >
@@ -55,7 +51,7 @@ const Header = () => {
 
         {/* Messaging Icon */}
         <div
-          className="icon icon-spacing"
+          className="icon icon-spacing mx-3"
           onMouseEnter={() => setShowMessages(true)}
           onMouseLeave={() => setShowMessages(false)}
         >
@@ -71,7 +67,7 @@ const Header = () => {
 
         {/* Language Icon */}
         <div
-          className="icon icon-spacing"
+          className="icon icon-spacing mx-3"
           onMouseEnter={() => setShowLanguageOptions(true)}
           onMouseLeave={() => setShowLanguageOptions(false)}
         >

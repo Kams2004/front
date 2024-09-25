@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from './Header';
-import Body from './Body';
-import Sidebar from './SideBar';
+import Body from './Admin-Body';
+import Sidebar from './Admin-SideBar';
 
 import './Dashboard.css';
 

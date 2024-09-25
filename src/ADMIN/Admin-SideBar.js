@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./SideBar.css"; // Ensure correct path
+import "./Admin-SideBar.css"; // Ensure correct path
 
 const Sidebar = ({ onItemClick }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -22,6 +22,9 @@ const Sidebar = ({ onItemClick }) => {
   const handleMouseEnter = () => setIsExpanded(true);
   const handleMouseLeave = () => setIsExpanded(false);
 
+  const handleItemClick = (item) => {
+    onItemClick(item);
+  };
   return (
     <div
       className={`sidebar-containers ${isExpanded ? "expanded" : ""}`}
@@ -45,10 +48,10 @@ const Sidebar = ({ onItemClick }) => {
 
         <nav className="sidebar-nav">
           <ul>
-            <li onClick={() => onItemClick("Users")}>
-              <i className="bi bi-person"></i>
-              {isExpanded && <span>Users</span>}
-            </li>
+          <li onClick={() => handleItemClick("Users")}>
+          <i className="bi bi-person"></i>
+          {isExpanded && <span>Users</span>}
+        </li>
             <li onClick={() => onItemClick("Groups")}>
               <i className="bi bi-people"></i>
               {isExpanded && <span>Groups</span>}

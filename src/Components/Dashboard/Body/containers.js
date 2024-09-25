@@ -233,7 +233,7 @@ export const TransactionsContainer = ({ handleReload }) => {
   };
 
   return (
-    <div className="container transactions-container">
+    <div className="container1 transactions-container">
       <i className="bi bi-arrow-clockwise reload-icon" onClick={handleReload}></i>
       <h2 className="text-center">Today's Transactions</h2>
       <div className="wallet-section d-flex align-items-center mt-4">
@@ -280,7 +280,7 @@ export const PatientsContainer = ({ totalPatients = 200, patientsCount = 139, ha
     const circumference = 2 * Math.PI * radius; // Circumference of the circle
 
     return (
-        <div className="container patients-container">
+        <div className="container1 patients-container">
             <i className="bi bi-arrow-clockwise reload-icon" onClick={handleReload}></i>
             <h2 className="text-center mb-4">Registered Patients</h2>
             <div className="progress-row d-flex align-items-center justify-content-center">
@@ -309,7 +309,7 @@ export const ExaminationsContainer = ({ examinationsInProcess, progressPercent, 
     const circumference = 251.2; // Circle circumference (2 * π * r)
   
     return (
-      <div className="container examinations-container">
+      <div className="container1 examinations-container">
         <i className="bi bi-arrow-clockwise reload-icon" onClick={handleReload}></i>
         <h2 className="text-center mb-4">Examinations In Process</h2>
         <div className="progress-row d-flex align-items-center justify-content-center">
@@ -375,7 +375,7 @@ export const WeeklyRevenueContainer = () => {
   };
 
   return (
-    <div className="container weekly-revenue-container">
+    <div className="container1 weekly-revenue-container">
       <i className="bi bi-arrow-clockwise reload-icon" onClick={() => console.log('Reloading...')}></i>
       <h3 className="text-center mb-4">Weekly Revenue</h3>
       <Line data={weeklyRevenueData} />
@@ -396,7 +396,7 @@ export const StatusByChannelContainer = () => {
   };
 
   return (
-    <div className="container status-by-channel-container">
+    <div className="container1 status-by-channel-container">
       <i className="bi bi-arrow-clockwise reload-icon" onClick={() => console.log('Reloading...')}></i>
       <h3 className="text-center mb-4">Status by Channel</h3>
       <Bar data={statusByChannelData} />

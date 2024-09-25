@@ -1,0 +1,23 @@
+/* DoctorManagement.css */
+.doctor-management-container {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .doctor-table {
+    margin-top: 1.5rem;
+  }
+  
+  .doctor-table th,
+  .doctor-table td {
+    text-align: left;
+  }
+  
+  .doctor-table th {
+    background-color: #f7f7f7;
+  }
+  

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from './Header/Header';
-import Body from './Body/Body';
+import Body from './Body/Doctor-Body';
 import Sidebar from './SideBar/SideBar';
 
 import './DashboardPage.css';

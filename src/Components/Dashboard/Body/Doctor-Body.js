@@ -1,6 +1,6 @@
 
 import React from 'react';
-import './Body.css'; // Import CSS specific to the body
+import './Doctor-Body.css'; // Import CSS specific to the body
 import {
   TransactionsContainer,
   PatientsContainer,
@@ -10,10 +10,10 @@ import {
   StatusByChannelContainer
 } from './containers'; // Import containers
 
-import TransactionsList from './Transaction/TransactionsList'; // Import the Transactions List component
-import RegisteredPatients from './Patients/RegisteredPatients'; // Import the Registered Patients component
-import ExaminationList from './Examinations/ExaminationList'; // Import the Examination List component
-import TransferToMedicalCenter from './Transfer/TransferToMedicalCenter'; // Import the Transfer component
+import TransactionsList from '../Transaction/TransactionsList'; // Import the Transactions List component
+import RegisteredPatients from '../Patients/RegisteredPatients'; // Import the Registered Patients component
+import ExaminationList from '../Examinations/ExaminationList'; // Import the Examination List component
+import TransferToMedicalCenter from '../Transfer/TransferToMedicalCenter'; // Import the Transfer component
 
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
