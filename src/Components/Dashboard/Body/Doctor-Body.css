@@ -46,6 +46,7 @@
 /* Side-by-Side Layout */
 .side-by-side {
   display: flex;
+  margin-top: 1%;
   gap: 1.5rem; /* Increase gap between side-by-side containers */
 }
 

@@ -4,10 +4,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Header.css"; // CSS specific to the header
 
-const Header = () => {
+const Header = ({ isProfileComplete }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
   const [showLanguageOptions, setShowLanguageOptions] = useState(false);
+  
+  // Number of notifications, e.g., profile update reminder
+  const notificationCount = isProfileComplete ? 0 : 1;
 
   return (
     <header className="dashboard-header d-flex justify-content-between align-items-center p-3 shadow-sm">
@@ -17,12 +20,8 @@ const Header = () => {
       </div>
 
       {/* Search Bar - Centered */}
-      <div
-       className="d-flex form-control search-bar rounded-pill max-w"
-
-       >
+      <div className="d-flex form-control search-bar rounded-pill max-w">
         <i className="mr-5 bi bi-search"></i>
-
         <input
           type="text"
           className="border-0 ml-5 flex-grow-1"
@@ -39,15 +38,19 @@ const Header = () => {
 
         {/* Notification Icon */}
         <div
-          className="icon icon-spacing"
+          className={`icon icon-spacing ${notificationCount > 0 ? "shake-icon" : ""}`} 
           onMouseEnter={() => setShowNotifications(true)}
           onMouseLeave={() => setShowNotifications(false)}
+          style={{ position: 'relative' }} // Set relative positioning here
         >
-          <i className="bi bi-bell shake-icon"></i> {/* Notification Icon */}
-          {showNotifications && (
-            <div className="popover-container">
+          <i className="bi bi-bell"></i> {/* Notification Icon */}
+          {notificationCount > 0 && (
+            <span className="notification-count">{notificationCount}</span>
+          )}
+          {showNotifications && notificationCount > 0 && (
+            <div className="popover-container notification-popover">
               <div className="popover-content">
-                <p>No notifications</p>
+                <p>You need to update your profile to access other sections.</p>
               </div>
             </div>
           )}

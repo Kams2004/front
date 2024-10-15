@@ -1,0 +1,87 @@
+/* General form styling */
+.request-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 40px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Input field styling */
+.input-group {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-group input, 
+.input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Buttons styling */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10%;
+}
+
+.cancel-button, .submit-button {
+    width: 48%;
+    padding: 15px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.cancel-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.cancel-button:hover {
+    background-color: #d9534f;
+    color: white;
+}
+
+.submit-button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+}
+
+.submit-button:hover {
+    transform: translateY(-5px);
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .button-group {
+        flex-direction: column;
+    }
+
+    .cancel-button, .submit-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

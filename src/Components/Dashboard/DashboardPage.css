@@ -2,9 +2,27 @@
 .dashboard-page {
   display: flex;
   flex-direction: column;
-  
   background-color: #f0f2f5; /* Ensure background color for the page */
+  position: relative; /* To position the watermark */
+  min-height: 100vh;
 }
+
+/* Add this for watermark styling */
+.watermark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./pngegg.png'); /* Adjust the path as needed */
+  background-size: contain; /* Ensure the image scales appropriately */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-position: center; /* Center the image */
+  opacity: 0.1; /* Make the watermark semi-transparent */
+  pointer-events: none; /* Allow clicks to pass through */
+  z-index: 0; /* Ensure it's behind other content */
+}
+
 
 .header {
   width: 100%;

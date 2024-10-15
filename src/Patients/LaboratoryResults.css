@@ -1,0 +1,114 @@
+/* General styles */
+.report-container {
+    grid-column: span 3;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.header-row {
+    display: flex; /* Enable flexbox layout */
+    justify-content: space-between; /* Distribute space between items */
+    align-items: center; /* Align items vertically centered */
+    margin-bottom: 10px; /* Space between header rows */
+}
+
+.header-item {
+    flex: 1; /* Allow items to grow and shrink */
+    text-align: left; /* Align text to the left */
+}
+
+.header-item:last-child {
+    text-align: right; /* Align the last item to the right */
+}
+
+.header-item p {
+    margin: 0; /* Remove default margins */
+}
+
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+header, section {
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+}
+
+.download-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.download-button:hover {
+    background-color: #0056b3;
+}
+
+/* Collapsible sections */
+.collapsible-header {
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon {
+    margin-left: 10px; /* Space between title and icon */
+    transition: transform 0.3s; /* Optional: Animation for icon rotation */
+}
+
+.up {
+    transform: rotate(180deg); /* Optional: Rotate icon when open */
+    color: #ced4da;
+}
+
+.down {
+    transform: rotate(0deg);
+    color: #ced4da; /* Reset rotation when closed */
+}
+
+/* Table styles */
+.table {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.table th, .table td {
+    text-align: center;
+    padding: 10px;
+}
+
+.table th {
+    background-color: #f1f3f5;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e9ecef;
+}

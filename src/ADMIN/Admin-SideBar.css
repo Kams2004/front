@@ -1,129 +1,162 @@
-/* Sidebar CSS */
 .sidebar-containers {
-    position: fixed; /* Fixed position on the left side */
-    top: 85px; /* Offset from the header */
-    left: 10px; /* Align to the left of the viewport */
-    background-color: #292b2c;
-    border-radius: 10px;
-    transition: width 0.3s ease-in-out;
-    z-index: 1000; /* Ensure the sidebar is above other content */
-    overflow: hidden; /* Prevent overflow */
-    bottom: 10px;
-    padding: 10px;
+  position: fixed; /* Fixed position on the left side */
+  top: 85px; /* Offset from the header */
+  left: 10px; /* Align to the left of the viewport */
+  background-color: #292b2c;
+  border-radius: 10px;
+  transition: width 0.3s ease-in-out;
+  z-index: 1000; /* Ensure the sidebar is above other content */
+  overflow: hidden; /* Prevent overflow */
+  bottom: 10px;
+  padding: 10px;
+}
+
+.warp {
+  white-space: nowrap;
+}
+
+.expanded {
+  width: 250px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+  color: white;
+}
+
+/* Logo styling */
+.logo-container {
+  margin: 20px 0;
+}
+
+.sidebar-logo {
+  width: 40px;
+  height: 40px;
+}
+
+/* User Profile */
+.user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.user-profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.user-info {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.user-info p {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.user-info small {
+  color: #ccc;
+}
+
+/* Sidebar Nav */
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar-nav li {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sidebar-nav li:hover {
+  background-color: #4caf50;
+}
+
+.sidebar-nav i {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.sidebar-nav span {
+  margin-left: 20px;
+  font-size: 1.2rem;
+}
+
+/* Expanded and Collapsed text behavior */
+.expanded span {
+  display: inline-block;
+}
+
+/* Block display */
+.block {
+  display: block;
+  text-align: center;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 472px) {
+  .sidebar-containers {
+    right: 10px;
+    top: initial;
   }
-  
-  .warp {
-    white-space: nowrap;
-  }
-  
-  .expanded {
-    width: 250px;
-  }
-  
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    overflow: hidden;
-    color: white;
-  }
-  
-  /* Logo styling */
-  .logo-container {
-    margin: 20px 0;
-  }
-  
-  .sidebar-logo {
-    width: 40px;
-    height: 40px;
-  }
-  
-  /* User Profile */
-  .user-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 30px;
-  }
-  
-  .user-profile {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid white;
-  }
-  
-  .user-info {
-    text-align: center;
-    margin-top: 10px;
-  }
-  
-  .user-info p {
-    margin: 0;
-    font-size: 1.2rem;
-  }
-  
-  .user-info small {
-    color: #ccc;
-  }
-  
-  /* Sidebar Nav */
   .sidebar-nav ul {
-    list-style: none;
-    padding: 0;
+    display: flex;
+  }
+  .expanded {
     width: 100%;
   }
-  
-  .sidebar-nav li {
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .sidebar-nav li:hover {
-    background-color: #4caf50;
-  }
-  
-  .sidebar-nav i {
-    font-size: 1.5rem;
-    color: white;
-  }
-  
-  .sidebar-nav span {
-    margin-left: 20px;
-    font-size: 1.2rem;
-  }
-  
-  /* Expanded and Collapsed text behavior */
-  .expanded span {
-    display: inline-block;
-  }
-  
-  /* Block display */
   .block {
-    display: block;
+    display: none;
   }
-  
-  /* Responsive styles */
-  @media screen and (max-width: 472px) {
-    .sidebar-containers {
-      right: 10px;
-      top: initial;
-    }
-    .sidebar-nav ul {
-      display: flex;
-    }
-    .expanded {
-      width: 100%;
-    }
-    .block {
-      display: none;
-    }
-    .sidebar-containers {
-      padding: 0px;
-    }
+  .sidebar-containers {
+    padding: 0px;
   }
-  
+}
+.small-container {
+  position: relative; /* Ensure the container is positioned for absolute elements */
+  padding: 10px; /* Add some padding for better layout */
+  border: 1px solid #ddd; /* Optional: a border for visibility */
+  border-radius: 5px; /* Optional: rounded corners */
+  background-color: #f9f9f9; /* Optional: background color */
+}
+
+.loading-icon {
+  position: absolute; /* Position it relative to the container */
+  top: 10px; /* Adjust top spacing */
+  right: 10px; /* Adjust right spacing */
+  cursor: pointer;
+  color: blue; /* Set the icon color to blue */
+  font-size: 1.2rem; /* Make the icon smaller */
+  transition: transform 0.2s ease; /* Transition for rotation */
+}
+
+.loading {
+  animation: rotate 1s linear infinite; /* Animation class for loading */
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg); /* Start from 0 degrees */
+  }
+  to {
+    transform: rotate(360deg); /* Rotate to 360 degrees */
+  }
+}
+
+.spinner-icon {
+  font-size: 1rem; /* Adjust size of the spinner icon */
+}

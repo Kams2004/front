@@ -4,6 +4,7 @@ import GroupManagement from './GroupManagement'; // Import the group management 
 import DoctorManagement from './DoctorManagement'; // Import the doctor management component
 import PatientManagement from './PatientManagement'; // Import the patient management component
 import Sidebar from './Admin-SideBar'; // Import the sidebar component
+import AdminSettingsContainer from './AdminSettingsContainer'; // Import the settings container
 import './Admin-body.css'; // Import CSS specific to the body
 import {
   SmallContainer1,
@@ -36,6 +37,8 @@ const Body = () => {
         return <UserManagement />;
       case 'Groups':
         return <GroupManagement />;
+      case 'Settings': // Add this case for the settings container
+        return <AdminSettingsContainer />;
       // Other cases for additional components
       default:
         return <LargeContainer2 />; // Render LargeContainer2 for default case

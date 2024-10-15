@@ -1,4 +1,3 @@
-
 import React from 'react';
 import './Doctor-Body.css'; // Import CSS specific to the body
 import {
@@ -7,14 +6,14 @@ import {
   ExaminationsContainer,
   WideContainer,
   WeeklyRevenueContainer,
-  StatusByChannelContainer
+  StatusByChannelContainer,
 } from './containers'; // Import containers
 
 import TransactionsList from '../Transaction/TransactionsList'; // Import the Transactions List component
 import RegisteredPatients from '../Patients/RegisteredPatients'; // Import the Registered Patients component
 import ExaminationList from '../Examinations/ExaminationList'; // Import the Examination List component
 import TransferToMedicalCenter from '../Transfer/TransferToMedicalCenter'; // Import the Transfer component
-
+import SettingsContainer from './Settings/SettingsContainer'; // Import the Settings container
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
 // Register the necessary components
@@ -28,9 +27,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const Body = ({ selectedComponent }) => {
-  // Example values
+const Body = ({ selectedComponent, onProfileComplete }) => {
   const examinationsInProcess = 10;
   const totalExaminations = 20;
   const progressPercent = (examinationsInProcess / totalExaminations) * 100;
@@ -58,6 +55,8 @@ const Body = ({ selectedComponent }) => {
           <ExaminationList />
         ) : selectedComponent === 'Transfer' ? (
           <TransferToMedicalCenter />
+        ) : selectedComponent === 'Settings' ? ( 
+          <SettingsContainer onProfileComplete={onProfileComplete} /> // Pass the prop here
         ) : (
           <>
             <WideContainer handleReload={handleReload} />

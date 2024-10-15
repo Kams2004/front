@@ -64,3 +64,8 @@
     margin-top: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+.action-buttons {
+    display: flex;              /* Enable flexbox */
+    gap: 0.5rem;               /* Add spacing between buttons */
+    justify-content: flex-start; /* Align buttons to the left */
+}

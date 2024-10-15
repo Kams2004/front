@@ -1,28 +1,67 @@
 // GroupManagement.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './GroupManagement.css'; // Import CSS specific to group management
-
-const demoGroups = [
-  { id: 1, name: 'Admins' },
-  { id: 2, name: 'Editors' },
-  { id: 3, name: 'Viewers' },
-];
-
+import config from '../config';
 const GroupManagement = () => {
-  const [groups, setGroups] = useState(demoGroups);
+  const [groups, setGroups] = useState([]);
   const [newGroup, setNewGroup] = useState('');
 
-  const handleAddGroup = () => {
+  // Fetch groups from the backend on component mount
+  useEffect(() => {
+    const fetchGroups = async () => {
+      try {
+        const response = await fetch(`${config.baseURL}roles`);
+        const data = await response.json();
+        setGroups(data);
+      } catch (error) {
+        console.error('Error fetching groups:', error);
+      }
+    };
+
+    fetchGroups();
+  }, []);
+
+  const handleAddGroup = async () => {
     if (newGroup.trim()) {
-      const newGroupItem = { id: groups.length + 1, name: newGroup };
-      setGroups([...groups, newGroupItem]);
-      setNewGroup(''); // Clear input field
+      const newGroupItem = { name: newGroup };
+
+      try {
+        const response = await fetch(`${config.baseURL}/roles/add`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newGroupItem),
+        });
+
+        if (response.ok) {
+          const createdGroup = await response.json();
+          setGroups([...groups, createdGroup]);
+          setNewGroup(''); // Clear input field
+        } else {
+          console.error('Failed to add group:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error adding group:', error);
+      }
     }
   };
 
-  const handleDeleteGroup = (id) => {
-    const updatedGroups = groups.filter(group => group.id !== id); // Remove the group by id
-    setGroups(updatedGroups); // Update the state with the new group list
+  const handleDeleteGroup = async (id) => {
+    try {
+      const response = await fetch(`${config.baseURL}api/groups/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        const updatedGroups = groups.filter(group => group.id !== id);
+        setGroups(updatedGroups); // Update the state with the new group list
+      } else {
+        console.error('Failed to delete group:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting group:', error);
+    }
   };
 
   return (

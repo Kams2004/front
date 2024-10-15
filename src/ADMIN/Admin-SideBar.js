@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next"; // Import the translation hook
 import "./Admin-SideBar.css"; // Ensure correct path
 
 const Sidebar = ({ onItemClick }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useTranslation("admin"); // Use the 'admin' namespace for translations
 
   // Handle resizing and loading
   useEffect(() => {
@@ -12,7 +14,7 @@ const Sidebar = ({ onItemClick }) => {
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("load", handleResize);
-    
+
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("load", handleResize);
@@ -25,6 +27,7 @@ const Sidebar = ({ onItemClick }) => {
   const handleItemClick = (item) => {
     onItemClick(item);
   };
+
   return (
     <div
       className={`sidebar-containers ${isExpanded ? "expanded" : ""}`}
@@ -32,45 +35,48 @@ const Sidebar = ({ onItemClick }) => {
       onMouseLeave={handleMouseLeave}
     >
       <div className="sidebar warp">
-        <div className="logo-container block">
-          <img src="pdmd.png" alt="PDMD Logo" className="sidebar-logo" />
-        </div>
-
+        {/* User Profile Section */}
         <div className="user-container block">
           <img src="USER.jpeg" alt="User" className="user-profile" />
           {isExpanded && (
             <div className="user-info">
-              <p>Hello, William</p>
+              <p>{t("helloUser", { name: "William" })}</p> {/* Translated text */}
               <small>william@gmail.com</small>
             </div>
           )}
         </div>
 
+        {/* Navigation Section */}
         <nav className="sidebar-nav">
           <ul>
-          <li onClick={() => handleItemClick("Users")}>
-          <i className="bi bi-person"></i>
-          {isExpanded && <span>Users</span>}
-        </li>
+            <li onClick={() => handleItemClick("Users")}>
+              <i className="bi bi-person"></i>
+              {isExpanded && <span>{t("users")}</span>} {/* Translated text */}
+            </li>
             <li onClick={() => onItemClick("Groups")}>
               <i className="bi bi-people"></i>
-              {isExpanded && <span>Groups</span>}
+              {isExpanded && <span>{t("groups")}</span>} {/* Translated text */}
             </li>
             <li onClick={() => onItemClick("Doctors")}>
               <i className="bi bi-person-fill"></i>
-              {isExpanded && <span>Doctors</span>}
+              {isExpanded && <span>{t("doctors")}</span>} {/* Translated text */}
             </li>
             <li onClick={() => onItemClick("Requests")}>
               <i className="bi bi-file-earmark-text"></i>
-              {isExpanded && <span>Requests</span>}
+              {isExpanded && <span>{t("requests")}</span>} {/* Translated text */}
             </li>
             <li onClick={() => onItemClick("Patients")}>
               <i className="bi bi-person-lines-fill"></i>
-              {isExpanded && <span>Registered Patients</span>}
+              {isExpanded && <span>{t("patients")}</span>} {/* Translated text */}
             </li>
             <li onClick={() => onItemClick("Doctors/Prescriptions")}>
               <i className="bi bi-file-earmark-medical"></i>
-              {isExpanded && <span>Doctors/Prescriptions</span>}
+              {isExpanded && <span>{t("doctorsPrescriptions")}</span>} {/* Translated text */}
+            </li>
+            {/* Adding Settings Icon */}
+            <li onClick={() => onItemClick("Settings")}>
+              <i className="bi bi-gear"></i>
+              {isExpanded && <span>{t("settings")}</span>} {/* Translated text */}
             </li>
           </ul>
         </nav>

@@ -37,18 +37,9 @@
 .search-bar:focus {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-.max-w{
-max-width:800px;
-}
 
-
-.search-icon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #999;
-  pointer-events: none;
+.max-w {
+  max-width: 800px;
 }
 
 .icons-container {
@@ -61,6 +52,7 @@ max-width:800px;
   color: #333;
   cursor: pointer;
   transition: color 0.3s ease;
+  position: relative; /* Ensure this is relative for proper absolute positioning of the count */
 }
 
 .icon:hover {
@@ -69,12 +61,12 @@ max-width:800px;
 
 .icon-spacing {
   margin-right: 20px !important;
-  display:block;
+  display: block;
 }
 
 /* Shake animation */
-.shake-icon:hover {
-  animation: shake 0.5s;
+.shake-icon {
+  animation: shake 0.5s infinite;
 }
 
 @keyframes shake {
@@ -95,6 +87,16 @@ max-width:800px;
   z-index: 1000;
   min-width: 150px;
   border-radius: 0.5rem; /* Rounded corners */
+  right: 0; /* Position to the right of the icon */
+  transform: translateX(100%); /* Start from the right */
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Notification popover specific styling */
+.notification-popover {
+  transform: translateX(0); /* Bring it to original position on hover */
+  opacity: 1; /* Make it visible */
 }
 
 .popover-content {
@@ -111,9 +113,20 @@ max-width:800px;
   background-color: #f0f0f0; /* Highlight on hover */
 }
 
+.notification-count {
+  position: absolute; /* Absolutely position the count */
+  top: -5px; /* Adjust the position relative to the icon */
+  right: -10px; /* Adjust the position relative to the icon */
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0 5px;
+  font-size: 0.75rem;
+}
 
-@media screen and (max-width:600px){
+/* Responsive styles */
+@media screen and (max-width: 600px) {
   .icon-spacing {
-    display:none;
-  } 
+    display: none;
+  }
 }

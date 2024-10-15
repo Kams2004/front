@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from './Header';
+import Header from './AdminHeader';
 import Body from './Admin-Body';
 import Sidebar from './Admin-SideBar';
 

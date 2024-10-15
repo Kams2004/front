@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url('/home/pdmd/pdmd-medical-center/public/facade.png') no-repeat center center fixed; 
+  background: url('./test1.png') no-repeat center center fixed; 
   background-size: cover; /* Ensures the image covers the entire background */
 }
 
@@ -13,7 +13,7 @@
   display: flex;
   width: 80%;
   max-width: 1000px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -38,12 +38,14 @@
 
 /* Right side: form container */
 .form-container {
-  flex: 1; /* Takes up half the space */
-  padding: 40px;
+  flex: 1;
+  padding: 20px; /* Adjust padding to make the form more compact */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative; /* Add relative positioning for absolute elements */
+  overflow: hidden; /* Ensure no overflow during animation */
 }
 
 /* Circular logo */
@@ -51,7 +53,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%; /* Makes the logo circular */
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 /* All text bold */
@@ -116,11 +118,14 @@ h2, p, label, .forgot-password {
 .remember-me input {
   margin-right: 10px;
 }
-
 .forgot-password {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: bold;
+  color: #007bff;            /* Color for the link */
+  text-decoration: none;     /* Remove underline */
+  font-weight: bold;         /* Keep it bold */
+  border: none;              /* Ensure no border */
+  padding: 0;                /* Reset padding */
+  cursor: pointer;           /* Change cursor to pointer */
+  background-color: transparent; 
 }
 
 .forgot-password:hover {
@@ -201,3 +206,68 @@ h2, p, label, .forgot-password {
 
 /* Other styles remain unchanged... */
 
+/* Styles for confirmation message */
+.confirmation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  z-index: 1000;
+  animation: slideDown 0.5s ease-out forwards;
+}
+
+@keyframes slideDown {
+  from {
+      top: -50px;
+  }
+  to {
+      top: 0;
+  }
+}
+
+.confirmation-text {
+  font-size: 1.2rem;
+}
+
+.progress-bar-container {
+  background-color: rgba(255, 255, 255, 0.2);
+  height: 5px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  animation: progressAnimation 5s linear forwards;
+}
+
+@keyframes progressAnimation {
+  from {
+      width: 0%;
+  }
+  to {
+      width: 100%;
+  }
+}
+.green-container {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+
+
+.progress-green {
+    height: 100%;
+    background-color: white;
+    transition: width 1s linear;
+}
