@@ -1,86 +1,122 @@
-import React, { useEffect, useState } from 'react';
-import UserRegistration from './UserRegistration'; // Import the registration component
-import axios from 'axios'; // Import axios for API requests
-import './UserManagement.css'; // Import CSS specific to user management
+import React, { useEffect, useState, useCallback } from 'react';
+import UserRegistration from './UserRegistration';
+import axios from 'axios';
+import './UserManagement.css';
 import config from '../config';
+import { useAuth } from '../AuthContext';
+
+axios.defaults.withCredentials = true;
 
 const UserManagement = () => {
   const [showRegistration, setShowRegistration] = useState(false);
   const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null); // State for current user being edited
-  const [error, setError] = useState(null); // State for error messages
+  const [currentUser, setCurrentUser] = useState(null);
+  const [message, setMessage] = useState(null);
+  const [messageType, setMessageType] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const { isConnected } = useAuth();
 
-  // Fetch users from the backend API on component mount
-  useEffect(() => {
-    fetchUsers(); // Call fetchUsers to get user data
-  }, []); // Run once on mount
-
-  // Function to fetch users from the API
-  const fetchUsers = async () => {
-    try {
-      const token = localStorage.getItem('accessToken'); // Get the access token
-      const response = await axios.get(`${config.baseURL}user/all`, {
-        headers: {
-          Authorization: `Bearer ${token}` // Set the authorization header
-        }
-      });
-      setUsers(response.data); // Set the users state with fetched data
-    } catch (err) {
-      setError('Failed to fetch users. Please try again later.'); // Handle any errors
-      console.error('Error fetching users:', err);
-    }
+  const showMessage = (msg, type) => {
+    setMessage(msg);
+    setMessageType(type);
+    setTimeout(() => {
+      setMessage(null);
+      setMessageType(null);
+    }, 3000);
   };
 
+  const fetchUsers = useCallback(async () => {
+    if (!isConnected) {
+      showMessage('User is not connected. Please log in.', 'error');
+      return;
+    }
+  
+    try {
+      const response = await axios.get(`${config.baseURL}users/all`, {
+        withCredentials: true,
+      });
+      setUsers(response.data);
+    } catch (err) {
+      if (err.response && err.response.status === 401) {
+        showMessage('You need to log in to access this data.', 'error');
+      } else {
+        showMessage('Failed to fetch users. Please try again later.', 'error');
+      }
+      console.error('Error fetching users:', err);
+    }
+  }, [isConnected]);
+  
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
   const handleRegister = async () => {
-    setShowRegistration(false); // Hide the registration form
-    setCurrentUser(null); // Reset current user
-    await fetchUsers(); // Refresh the user list after registration or update
+    setShowRegistration(false);
+    setCurrentUser(null);
+    await fetchUsers();
+    showMessage('User registered successfully!', 'success');
   };
 
   const handleCancel = () => {
-    setShowRegistration(false); // Hide the registration form
-    setCurrentUser(null); // Reset current user
+    setShowRegistration(false);
+    setCurrentUser(null);
   };
 
   const handleEdit = (user) => {
-    setCurrentUser(user); // Set the user to be edited
-    setShowRegistration(true); // Show registration form
+    setCurrentUser(user);
+    setShowRegistration(true);
   };
+
   const handleDelete = async (userId) => {
+    if (!isConnected) {
+      showMessage('User is not connected. Please log in.', 'error');
+      return;
+    }
+
     const confirmed = window.confirm('Are you sure you want to delete this user?');
     if (confirmed) {
-        try {
-            const token = localStorage.getItem('accessToken'); // Get the access token
+      try {
+        const response = await axios.delete(`${config.baseURL}/users/del/${userId}`, {
+          withCredentials: true,
+        });
 
-            if (!token) {
-                setError('Authorization token is missing. Please log in again.');
-                return;
-            }
-
-            const response = await axios.delete(`${config.baseURL}users/del/${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}` // Set the authorization header
-                }
-            });
-
-            console.log('Delete Response:', response.data);
-            await fetchUsers(); // Refresh the user list after deletion
-        } catch (err) {
-            setError(`Failed to delete user: ${err.response ? err.response.data.Message : err.message}`);
-            console.error('Error deleting user:', err);
+        if (response.status === 200) {
+          const responseMessage = response.data.Message || 'User deleted successfully.';
+          showMessage(responseMessage, 'success');
+          await fetchUsers();
+        } else {
+          const errorMessage = response.data.Message || 'Failed to delete user.';
+          showMessage(errorMessage, 'error');
         }
+      } catch (err) {
+        const errorMessage = err.response ? err.response.data.Message : err.message;
+        showMessage(`Failed to delete user: ${errorMessage}`, 'error');
+        console.error('Error deleting user:', err);
+      }
     }
-};
+  };
 
+  const totalItems = users.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const displayedUsers = users.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const handlePageChange = (page) => setCurrentPage(page);
+  const handleItemsPerPageChange = (e) => setItemsPerPage(Number(e.target.value));
 
   return (
     <div className="user-management-container">
-      {error && <p className="text-danger text-center">{error}</p>} {/* Display error message */}
+      {message && (
+        <p className={`message text-center ${messageType}`}>
+          {message}
+        </p>
+      )}
+
       {showRegistration ? (
         <UserRegistration 
           onRegister={handleRegister} 
           onCancel={handleCancel} 
-          user={currentUser} // Pass current user data to registration
+          user={currentUser}
         />
       ) : (
         <>
@@ -88,42 +124,54 @@ const UserManagement = () => {
           <button
             className="add-user-button btn btn-primary"
             onClick={() => {
-              setCurrentUser(null); // Reset current user to null for new user registration
-              setShowRegistration(true); // Show registration form
+              setCurrentUser(null);
+              setShowRegistration(true);
             }} 
           >
             Add User
           </button>
+          
+          <div className="pagination-controls">
+            <label>
+              Items per page:
+              <select value={itemsPerPage} onChange={handleItemsPerPageChange}>
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={15}>15</option>
+              </select>
+            </label>
+          
+          </div>
+
           <table className="table table-striped user-table">
             <thead>
               <tr>
                 <th>No</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Roles</th> {/* New Roles column */}
-                <th>Actions</th> {/* New Actions column */}
+                <th>Roles</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
+              {displayedUsers.map((user, index) => (
                 <tr key={user.id}>
-                  <td>{index + 1}</td>
+                  <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                   <td>{user.first_name} {user.last_name}</td>
                   <td>{user.email}</td>
                   <td>
-                    {/* Display roles, joining them with commas */}
                     {user.roles.length > 0 ? user.roles.map(role => role.name).join(', ') : 'No Roles'}
                   </td>
-                  <td className="action-buttons"> {/* Added class for flexbox */}
+                  <td className="action-buttons">
                     <button
                       className="btn btn-warning btn-action rounded-pill"
-                      onClick={() => handleEdit(user)} // Edit user
+                      onClick={() => handleEdit(user)}
                     >
                       Update
                     </button>
                     <button
                       className="btn btn-danger btn-action rounded-pill"
-                      onClick={() => handleDelete(user.id)} // Delete user
+                      onClick={() => handleDelete(user.id)}
                     >
                       Delete
                     </button>
@@ -132,10 +180,31 @@ const UserManagement = () => {
               ))}
             </tbody>
           </table>
+          
+          <div className="pagination-controls">
+  <div className="pagination-buttons">
+    {[...Array(totalPages)].map((_, i) => (
+      <button
+        key={i}
+        className={`btn ${currentPage === i + 1 ? 'btn-primary' : 'btn-outline-primary'}`}
+        onClick={() => handlePageChange(i + 1)}
+      >
+        {i + 1}
+      </button>
+    ))}
+  </div>
+  <div className="page-info">
+    Page: {currentPage} of {totalPages}
+  </div>
+</div>
+
+      
         </>
       )}
     </div>
   );
 };
+
+
 
 export default UserManagement;

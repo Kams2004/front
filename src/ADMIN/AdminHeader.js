@@ -1,3 +1,4 @@
+// Import necessary dependencies
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom"; // Import for navigation
@@ -21,14 +22,31 @@ const AdminHeader = () => {
     setShowLanguageOptions(false); // Hide the language options dropdown
   };
 
+  // Function to clear all cookies
+  const clearAllCookies = () => {
+    const cookies = document.cookie.split("; ");
+    for (const cookie of cookies) {
+      const [name] = cookie.split("=");
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    }
+  };
+
   // Function to handle logout
   const handleLogout = async () => {
     try {
       // Send logout request to the API
-      await axios.post(`${config.baseURL}user/logout`);
+      await axios.post(`${config.baseURL}user/logout`, {}, {
+        withCredentials: true, // Include credentials for cross-origin requests
+      });
 
-      // Clear local storage or any authentication data (if needed)
-      localStorage.removeItem("firstLogin");
+      // Clear all authentication data from local storage
+      localStorage.clear(); // Clears all local storage entries
+      
+      // Clear all cookies
+      clearAllCookies();
+
+      // Optionally clear other items if you store additional info
+      // sessionStorage.clear(); // Uncomment if sessionStorage is also used
 
       // Redirect the user to the login page
       navigate("/");

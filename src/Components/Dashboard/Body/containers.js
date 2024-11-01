@@ -222,11 +222,42 @@
 // };
 // 
 // src/Components/Body/containers.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Line, Bar } from 'react-chartjs-2';
 
 export const TransactionsContainer = ({ handleReload }) => {
   const [isAmountVisible, setIsAmountVisible] = useState(false); // State to manage visibility
+  const [commission, setCommission] = useState('*****'); // State for commission amount
+  const [todayCommissionsCount, setTodayCommissionsCount] = useState(0); // State for today's commission count
+
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const response = await axios.get('http://65.21.73.170:2052/gnu_doctor/12/exams-patients');
+        const data = response.data;
+
+        // Format commission value to remove decimals, add commas, and set it in FCFA
+        const formattedCommission = parseInt(data.commission).toLocaleString('en-US');
+        setCommission(formattedCommission);
+
+        // Calculate today's commission count
+        const todayDate = new Date().toISOString().split('T')[0];
+        const commissionsToday = Object.values(data.data_patients).filter((transaction) => {
+          const transactionDate = new Date(transaction[2]).toISOString().split('T')[0];
+          return transactionDate === todayDate;
+        }).length;
+
+        setTodayCommissionsCount(commissionsToday);
+      } catch (error) {
+        console.error('Error fetching transactions data:', error);
+        alert('Failed to fetch transaction data. Please try again later.');
+      }
+    };
+
+    fetchTransactions();
+  }, []);
 
   const toggleAmountVisibility = () => {
     setIsAmountVisible(!isAmountVisible);
@@ -239,7 +270,7 @@ export const TransactionsContainer = ({ handleReload }) => {
       <div className="wallet-section d-flex align-items-center mt-4">
         <i className="bi bi-wallet2 wallet-icon"></i>
         <span className="amount ms-3 fw-bold">
-          {isAmountVisible ? "$1,500" : "*****"} {/* Show amount or asterisks */}
+          {isAmountVisible ? `${commission} FCFA` : "*****"} {/* Show amount or asterisks */}
         </span>
         <i 
           className={`bi ${isAmountVisible ? "bi-eye-slash" : "bi-eye"} ms-3 toggle-amount-icon`} 
@@ -260,7 +291,7 @@ export const TransactionsContainer = ({ handleReload }) => {
       <div className="transaction-info d-flex justify-content-between mt-4">
         <div className="commission d-flex align-items-center">
           <i className="bi bi-cash-coin"></i>
-          <span className="ms-2">5 Commissions</span>
+          <span className="ms-2">{todayCommissionsCount} Commissions</span>
         </div>
         <div className="total-transactions d-flex align-items-center">
           <i className="bi bi-receipt"></i>
@@ -270,6 +301,7 @@ export const TransactionsContainer = ({ handleReload }) => {
     </div>
   );
 };
+
 
 
 

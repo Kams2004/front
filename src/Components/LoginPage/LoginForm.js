@@ -1,4 +1,3 @@
-// LoginForm.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -8,63 +7,78 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import config from '../../config';
 
-const LoginForm = ({ onBack , onShowRequestForm }) => {
+const LoginForm = ({ onBack, onShowRequestForm }) => {
     const [role, setRole] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
+    const [remember_me, setRememberMe] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
 
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login } = useAuth(); // Use the login function from AuthContext
+
     const handleLogin = async (e) => {
         e.preventDefault();
         setError('');
-    
+
         if (!username || !password) {
             setError('Please fill in all fields.');
             return;
         }
-    
+
         try {
-            const response = await axios.post(`${config.baseURL}/user/login`, {
-                username,
-                password,
-            });
-    
-            const responseData = response.data;
-    
-            if (responseData.Message === "Connexion Réussie") {
-                const accessToken = responseData.accessToken;
-                const userData = {
-                    accessToken,
-                    role: responseData.Roles[0].name
-                };
-    
-                // Store the accessToken and role in localStorage
-                localStorage.setItem('accessToken', accessToken);
-                localStorage.setItem('userRole', userData.role);
-    
-                // Proceed with login actions
-                login(userData);
-    
-                // Redirect based on the user's role
-                switch (userData.role) {
-                    case 'Admin':
-                        navigate('/admin');
-                        break;
-                    case 'Doctor':
-                        navigate('/doctor');
-                        break;
-                    case 'Patient':
-                        navigate('/patient');
-                        break;
-                    default:
-                        setError('Role not recognized. Please contact support.');
+            const response = await axios.post(
+                `${config.baseURL}/user/login`,
+                {
+                    username,
+                    password,
+                    remember_me,
+                },
+                {
+                    withCredentials: true,
                 }
-            } else {
-                setError(responseData.message || 'Login failed. Please check your credentials and try again.');
+            );
+
+            const responseData = response.data;
+
+            if (response.status === 200) {
+                if (responseData['Token '] && responseData.data) {
+                    const accessToken = responseData['Token '];
+                    const userRole = responseData.data.roles && responseData.data.roles.length > 0 ? responseData.data.roles[0].name : null;
+                    const sessionId = responseData.sessionId; // Assuming the session ID is provided
+
+                    if (accessToken && userRole) {
+                        // Save user data to local storage
+                        localStorage.setItem('accessToken', accessToken);
+                        localStorage.setItem('userRole', userRole);
+                        if (sessionId) {
+                            localStorage.setItem('sessionId', sessionId);
+                        }
+
+                        // Login the user using the Auth context
+                        login({ accessToken, role: userRole, sessionId });
+
+                        // Redirect based on user's role
+                        switch (userRole) {
+                            case 'Admin':
+                                navigate('/admin');
+                                break;
+                            case 'Doctors':
+                                navigate('/doctor');
+                                break;
+                            case 'patient':
+                                navigate('/patient');
+                                break;
+                            default:
+                                setError('Role not recognized. Please contact support.');
+                        }
+                    } else {
+                        setError('Login failed. Please check your credentials.');
+                    }
+                } else {
+                    setError('Unexpected response structure. Please contact support.');
+                }
             }
         } catch (err) {
             if (err.response && err.response.data) {
@@ -75,9 +89,7 @@ const LoginForm = ({ onBack , onShowRequestForm }) => {
             console.error('Login error:', err);
         }
     };
-    
 
-   
     return (
         <div className="form-container">
             {error && <p className="text-danger">{error}</p>}
@@ -151,12 +163,12 @@ const LoginForm = ({ onBack , onShowRequestForm }) => {
                     <label className="remember-me">
                         <input
                             type="checkbox"
-                            checked={rememberMe}
+                            checked={remember_me}
                             onChange={(e) => setRememberMe(e.target.checked)}
                         />
                         Remember me
                     </label>
-                    <button type="button" className="forgot-password" onClick={onShowRequestForm}> {/* Change to button to prevent page reload */}
+                    <button type="button" className="forgot-password" onClick={onShowRequestForm}>
                         Forgot password?
                     </button>
                 </div>

@@ -85,3 +85,14 @@ h2 {
         margin-bottom: 10px;
     }
 }
+.success-message {
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 20px;
+    animation: fadeOut 6s forwards;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}

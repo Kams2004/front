@@ -1,27 +1,69 @@
-import React, { useState } from 'react';
-import'../Transaction/TransactionsList'; // Reuse existing styles or create new ones
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import '../Transaction/TransactionsList'; // Reuse existing styles or create new ones
+
+// Map of months with corresponding reference values for API requests
+const monthReferences = {
+  January: '01',
+  February: '02',
+  March: '03',
+  April: '04',
+  May: '05',
+  June: '06',
+  July: '07',
+  August: '08',
+  September: '09',
+  October: '10',
+  November: '11',
+  December: '12'
+};
 
 const RegisteredPatients = () => {
-  const initialPatients = [
-    { id: 1, name: 'John Doe', transferDate: '2024-09-18', examination: 'Blood Test', commission: '$50' },
-    { id: 2, name: 'Jane Smith', transferDate: '2024-09-17', examination: 'X-Ray', commission: '$75' },
-    { id: 3, name: 'Mike Johnson', transferDate: '2024-09-16', examination: 'MRI', commission: '$100' },
-    // Add more patient records as needed
-  ];
+  const [patients, setPatients] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState(''); // State for selected month
 
-  const [patients, setPatients] = useState(initialPatients);
-  const [filterFields, setFilterFields] = useState({
-    startDate: '',
-    endDate: '',
-  });
+  // Fetch all data from the API initially or when reset
+  const fetchAllPatients = async () => {
+    try {
+      const response = await axios.get('http://65.21.73.170:2052/gnu_doctor/12/exams-patients');
+      setPatients(response.data.data_patients); // Set the initial data received from API
+    } catch (error) {
+      console.error('Error fetching patients data:', error);
+      alert('Failed to fetch patient data. Please try again later.');
+    }
+  };
 
+  // Fetch filtered data based on selected month
+  const fetchPatientsByMonth = async (monthRef) => {
+    try {
+      const response = await axios.get(`http://65.21.73.170:2052/gnu_doctor/12/results_by_month/${monthRef}`);
+      setPatients(response.data.data_patients); // Set the filtered data
+    } catch (error) {
+      console.error('Error fetching filtered patients data:', error);
+      alert('Failed to fetch filtered patient data. Please try again later.');
+    }
+  };
+
+  // Load all data initially
+  useEffect(() => {
+    fetchAllPatients();
+  }, []);
+
+  // Handle filter button click
+  const handleFilter = () => {
+    if (selectedMonth) {
+      const monthRef = monthReferences[selectedMonth];
+      fetchPatientsByMonth(monthRef);
+    } else {
+      alert('Please select a month to filter.');
+    }
+  };
+
+  // Handle reset button click
   const handleReset = () => {
-    setFilterFields({
-      startDate: '',
-      endDate: '',
-    });
-    setPatients(initialPatients); // Reset the patients to initial state
+    setSelectedMonth('');
+    fetchAllPatients(); // Reload all data from the API
   };
 
   return (
@@ -31,34 +73,32 @@ const RegisteredPatients = () => {
       
       <form className="transaction-filter-form">
         <div className="row">
-          {/* Date Filtering */}
+          {/* Month Selection */}
           <div className="col-md-6">
             <div className="form-group">
-              <label htmlFor="startDate">Start Date</label>
-              <input 
-                type="date" 
-                className="form-control" 
-                id="startDate" 
-                value={filterFields.startDate}
-                onChange={(e) => setFilterFields({ ...filterFields, startDate: e.target.value })}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="endDate">End Date</label>
-              <input 
-                type="date" 
-                className="form-control" 
-                id="endDate" 
-                value={filterFields.endDate}
-                onChange={(e) => setFilterFields({ ...filterFields, endDate: e.target.value })}
-              />
+              <label htmlFor="monthSelect">Month</label>
+              <select
+                className="form-control"
+                id="monthSelect"
+                value={selectedMonth}
+                onChange={(e) => setSelectedMonth(e.target.value)}
+              >
+                <option value="">Select a Month</option>
+                {Object.keys(monthReferences).map((month) => (
+                  <option key={month} value={month}>
+                    {month}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
       </form>
 
       <div className="form-buttons text-right">
-        <button className="btn btn-primary rounded-pill" type="submit">Filter</button>
+        <button className="btn btn-primary rounded-pill" type="button" onClick={handleFilter}>
+          Filter
+        </button>
         <button 
           className="btn btn-secondary rounded-pill" 
           type="reset" 
@@ -69,25 +109,25 @@ const RegisteredPatients = () => {
       </div>
 
       <div className="results-container">
-        <h3>Showing {patients.length} Patients</h3>
+        <h3>Showing {Object.keys(patients).length} Patients</h3>
         <table className="table table-hover table-bordered table-striped">
           <thead className="thead-light">
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>Transfer Date</th>
+              <th>Patient Name</th>
               <th>Examination</th>
-              <th>Commission</th>
+              <th>Cost</th>
+              <th>Transfer Date</th>
             </tr>
           </thead>
           <tbody>
-            {patients.map((patient) => (
-              <tr key={patient.id}>
-                <td>{patient.id}</td>
-                <td>{patient.name}</td>
-                <td>{patient.transferDate}</td>
-                <td>{patient.examination}</td>
-                <td>{patient.commission}</td>
+            {Object.entries(patients).map(([name, details], index) => (
+              <tr key={index}>
+                <td>{index + 1}</td> {/* ID numbering */}
+                <td>{name}</td>
+                <td>{details[0]}</td>
+                <td>{details[1]}</td>
+                <td>{details[2]}</td>
               </tr>
             ))}
           </tbody>

@@ -1,4 +1,3 @@
-// LoginPage.js
 import React, { useState } from 'react';
 import EmailForm from './EmailForm';
 import LoginForm from './LoginForm';
@@ -6,22 +5,22 @@ import SendRequestForm from './RequestForm'; // Import the SendRequestForm compo
 import './LoginPage.css';
 
 const LoginPage = () => {
-    const [currentForm, setCurrentForm] = useState('email'); // New state to manage which form is shown
+    const [currentForm, setCurrentForm] = useState('email');
 
     const handleEmailReceived = () => {
-        setCurrentForm('login'); // Switch to login form when email is received
+        setCurrentForm('login');
     };
 
     const handleShowRequestFormFromEmail = () => {
-        setCurrentForm('request'); // Show request form from email
+        setCurrentForm('request');
     };
 
     const handleShowRequestFormFromLogin = () => {
-        setCurrentForm('request'); // Show request form from login
+        setCurrentForm('request');
     };
 
     const handleBackToEmail = () => {
-        setCurrentForm('email'); // Go back to email form
+        setCurrentForm('email');
     };
 
     return (
